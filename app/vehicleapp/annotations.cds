@@ -1,0 +1,1 @@
+using viservice as service from '../../srv/Service';

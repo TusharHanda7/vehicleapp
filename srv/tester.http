@@ -1,0 +1,11 @@
+GET http://localhost:4004/odata/v4/viservice
+
+###Read service metadata
+GET http://localhost:4004/odata/v4/viservice/$metadata
+
+###Get ANPR records
+GET http://localhost:4004/odata/v4/viservice/RequestSet
+
+
+###Get ANPR records
+GET http://localhost:4004/odata/v4/viservice/getMaterial()
