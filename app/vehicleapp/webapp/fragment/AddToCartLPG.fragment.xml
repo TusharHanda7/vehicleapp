@@ -1,0 +1,201 @@
+<core:FragmentDefinition xmlns:core="sap.ui.core" xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout"
+	xmlns:layout="sap.ui.layout" xmlns:table="sap.ui.table" xmlns:m="sap.m" xmlns:fGrid="sap.f" xmlns:f="sap.ui.layout.form">
+	<Dialog stretchOnPhone="true" contentHeight="100%" contentWidth="40%" class="sapUiSizeCompact" afterClose="dialogAfterclose"
+		title="Invoice Details" escapeHandler=".handleEscape">
+		<customHeader>
+			<Bar>
+				<contentMiddle>
+					<!--<Image height="2rem" src="sap-icon://cart-approval"/>-->
+					<core:Icon src="sap-icon://cart-approval" class="size4" color="#6a6d70">
+						<core:layoutData>
+							<FlexItemData growFactor="1"/>
+						</core:layoutData>
+					</core:Icon>
+					<Label design="Bold" text="Cart" class="PageHead"/>
+				</contentMiddle>
+				<contentRight>
+					<Button icon="sap-icon://decline" type="Reject" tooltip="Close" press="onCloseLPGCart" class="sapUiTinyMarginBegin sapUiTinyMarginEnd"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content>
+			<fGrid:GridListItem class="cl_Materialgridlist sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom" press="onPressSalesorder" type="None"
+				height="auto">
+				<HBox alignItems="Start" justifyContent="SpaceBetween">
+					<HBox>
+						<Image height="3.5rem" src="{imageModel>/path}/image/GassColorIcon.png" class="sapUiSmallMarginTop sapUiSmallMarginBegin"/>
+						<Title text="{ServicesViewModel>/Cart_Material}" wrapping="true" class="sapUiSmallMarginTopBottom sapUiTinyMarginBegin sapUiTinyMarginEnd "/>
+					</HBox>
+					<ObjectNumber number="{ServicesViewModel>/Cart_TotalAmount}" numberUnit="AED" state="Success"
+						class="Cl_AmountText sapUiSmallMarginTop sapUiTinyMarginEnd"/>
+				</HBox>
+				<HBox alignItems="Start" justifyContent="SpaceBetween">
+					<Title text="{ServicesViewModel>/Cart_MaterialDesc}" level="H3" wrapping="true"
+						class="sapUiSmallMarginTop sapUiSmallMarginBegin sapUiTinyMarginEnd "/>
+					<VBox>
+						<ObjectStatus title="Net" text="{ServicesViewModel>/Cart_NetAmount}" state="Error" class="sapUiTinyMarginBeginEnd"/>
+						<ObjectStatus title="Tax" text="{ServicesViewModel>/Cart_TaxAmount}" state="Error" class="sapUiTinyMarginBeginEnd sapUiTinyMarginBottom"/>
+					</VBox>
+				</HBox>
+				<!--<HBox alignItems="Start" justifyContent="SpaceBetween">-->
+				<!--	<Text/>-->
+				<!--	<ObjectStatus title="NetPrice" text="49.00" state="Error" class="sapUiTinyMarginBeginEnd"/>-->
+				<!--</HBox>-->
+			</fGrid:GridListItem>
+			<FlexBox height="auto" alignItems="Start" justifyContent="Center" class="sapUiSmallMarginTopBottom">
+				<items>
+					<Image height="2.5rem" width="auto" src="{imageModel>/path}/image/Profile3.png" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom"/>
+					<!--<Text text="Plate Number" class="sapUiTinyMarginBeginEnd sapUiTinyMarginTop"/>-->
+					<Input value="" placeholder="Name" valueState="Information" valueStateText="Enter Plate No"
+						class="sapUiTinyMarginBeginEnd sapUiSmallMarginTopBottom"/>
+					<Input value="" placeholder="Phone No" valueState="Information" valueStateText="Enter Plate Code" width="80%"
+						class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom sapUiTinyMarginEnd"/>
+				</items>
+			</FlexBox>
+			<fGrid:GridList headerText="Identify Customer" visible="{ServicesViewModel>/IdentifyVisible}">
+				<fGrid:GridListItem class="Cl_Identify sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom" press="onPressCheckCard" type="Active"
+					height="auto">
+					<VBox>
+						<layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
+						<HBox alignItems="Start" justifyContent="Start">
+							<Image height="2rem" src="{imageModel>/path}/image/qr.png" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
+							<Title text="Scan Mobile QR Code" wrapping="true"
+								class="Cl_IdentifyTitle sapUiSmallMarginTop sapUiSmallMarginBegin sapUiTinyMarginEnd sapUiTinyMarginTopBottom"/>
+							<!--<Title text="{oGlobalModel>/Global_SaleOrder}" wrapping="true" class="Cl_QuickLinkBox sapUiTinyMarginTop sapUiSmallMarginBegin"/>-->
+						</HBox>
+					</VBox>
+				</fGrid:GridListItem>
+				<fGrid:GridListItem class="Cl_Identify sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom" press="onPressContinueguest" type="Active"
+					height="auto">
+					<VBox>
+						<layoutData>
+							<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
+						<HBox alignItems="Start" justifyContent="Start">
+							<Image height="2rem" src="{imageModel>/path}/image/Skip.png" class="sapUiSmallMarginTopBottom sapUiSmallMarginBegin"/>
+							<Title text="Skip and Continue as a guest" wrapping="true"
+								class="Cl_IdentifyTitle sapUiSmallMarginTop sapUiTinyMarginBegin sapUiTinyMarginEnd sapUiTinyMarginTopBottom"/>
+							<!--<Title text="{oGlobalModel>/Global_SaleOrder}" wrapping="true" class="Cl_QuickLinkBox sapUiTinyMarginTop sapUiSmallMarginBegin"/>-->
+						</HBox>
+					</VBox>
+				</fGrid:GridListItem>
+			</fGrid:GridList>
+			<fGrid:GridListItem class="cl_Materialgridlist sapUiTinyMarginBeginEnd sapUiTinyMarginTopBottom" press="onPressSalesorder" type="None"
+				height="auto" visible="{ServicesViewModel>/GuestUsertVisible}">
+				<HBox>
+					<Image height="1.5rem" src="{imageModel>/path}/image/ProfileUser.png" class="sapUiSmallMarginTop sapUiSmallMarginBegin"/>
+					<Title text="Guest User" wrapping="true" class="sapUiSmallMarginTop sapUiTinyMarginBegin sapUiTinyMarginEnd "/>
+				</HBox>
+				<HBox>
+					<Text text="XXXX" class="sapUiTinyMarginBottom sapUiTinyMarginBegin"/>
+					<Text text="XXXX" class="sapUiTinyMarginBottom sapUiTinyMarginBegin"/>
+				</HBox>
+				<!--<MessageStrip text="Total : 50 AED" type="Success" showIcon="true" visible="{ServicesViewModel>/GuestUsertVisible}"-->
+				<!--	class="Cl_MessageStrip sapUiTinyMarginTopBottom sapUiTinyMarginBeginEnd"></MessageStrip>-->
+			</fGrid:GridListItem>
+			<!--Payment-->
+			<Title level="H3" text="Payment" class="sapUiSmallMarginBeginEnd sapUiSmallMarginTopBottom" visible="{ServicesViewModel>/GuestUsertVisible}"/>
+			<Panel visible="{ServicesViewModel>/GuestUsertVisible}" tickyHeader="true" expandable="true" expand="onExpandCash"
+				expanded="{ServicesViewModel>/CashMOPPanelExpand}" width="auto" class="sapUiTinyMarginBeginEnd" expandAnimation="true">
+				<headerToolbar>
+					<OverflowToolbar height="3rem" style="Clear">
+						<Image height="1.5rem" src="{imageModel>/path}/image/MoneyLogo.png"/>
+						<Title text="Cash"/>
+						<ToolbarSpacer/>
+						<CheckBox text="Cash MOP" valueState="Information" enabled="true" selected="{ServicesViewModel>/Cash_CheckBoxSeleted}"
+							select="onPressCashSelect"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<content>
+					<f:Form editable="true" visible="{PaymentServicesViewModel>/Cash_MOPForm}">
+						<f:layout>
+							<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+								emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+						</f:layout>
+						<f:formContainers>
+							<f:FormContainer>
+								<f:formElements>
+									<f:FormElement label="Cash">
+										<f:fields>
+											<Input value="" placeholder="Enter Amount" valueState="Information"></Input>
+										</f:fields>
+									</f:FormElement>
+								</f:formElements>
+							</f:FormContainer>
+						</f:formContainers>
+					</f:Form>
+				</content>
+			</Panel>
+			<Panel visible="{ServicesViewModel>/GuestUsertVisible}" expandable="true" expand="onExpandCard" stickyHeader="true"
+				expanded="{ServicesViewModel>/CardMOPPanelExpand}" width="auto" class="sapUiTinyMarginBeginEnd sapUiSmallMarginBottom"
+				expandAnimation="true">
+				<headerToolbar>
+					<OverflowToolbar height="3rem" style="Clear">
+						<Image height="1.5rem" src="{imageModel>/path}/image/CardLogo.png"/>
+						<Title text="Card"/>
+						<ToolbarSpacer/>
+						<CheckBox text="Card MOP" valueState="Information" enabled="true" selected="{ServicesViewModel>/Card_CheckBoxSeleted}"
+							select="onPressCardSelect"/>
+					</OverflowToolbar>
+				</headerToolbar>
+				<content>
+					<f:Form editable="true" visible="{PaymentServicesViewModel>/Card_MOPForm}">
+						<f:layout>
+							<f:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4"
+								emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+						</f:layout>
+						<f:formContainers>
+							<f:FormContainer>
+								<f:formElements>
+									<f:FormElement label="Debit Card">
+										<f:fields>
+											<Input value="" placeholder="Amount" valueState="Information">
+												<layoutData>
+													<l:GridData span="XL1 L2 M2 S4"/>
+												</layoutData>
+											</Input>
+											<Input value="" placeholder="Reference" valueState="Information">
+												<layoutData>
+													<l:GridData span="XL1 L2 M2 S4"/>
+												</layoutData>
+											</Input>
+											<Button text="Pay" type="Emphasized" press="onPressPayCard">
+												<layoutData>
+													<l:GridData span="XL1 L2 M2 S4"/>
+												</layoutData>
+											</Button>
+										</f:fields>
+									</f:FormElement>
+									<f:FormElement label="ADNOC Fleet Card">
+										<f:fields>
+											<Input value="" placeholder="Amount" valueState="Information">
+												<layoutData>
+													<l:GridData span="XL1 L3 M4 S4"/>
+												</layoutData>
+											</Input>
+											<Input value="" placeholder="Reference" valueState="Information">
+												<layoutData>
+													<l:GridData span="XL1 L3 M4 S4"/>
+												</layoutData>
+											</Input>
+										</f:fields>
+									</f:FormElement>
+								</f:formElements>
+							</f:FormContainer>
+						</f:formContainers>
+					</f:Form>
+				</content>
+			</Panel>
+		</content>
+		<buttons>
+			<Button text="Continue" type="Emphasized" iconFirst="true" width="auto" visible="{ServicesViewModel>/ConfirmButtomVisible}"
+				iconDensityAware="false" press="onPressConfirm" class="sapUiTinyMarginEnd" icon='sap-icon://accept'/>
+			<Button text="Identify" type="Emphasized" iconFirst="true" width="auto" visible="{ServicesViewModel>/IdenifymButtomVisible}"
+				iconDensityAware="false" press="onPressIdentify" class="sapUiTinyMarginEnd" icon='sap-icon://employee-lookup'/>
+			<Button text="Payment" type="Emphasized" iconFirst="true" width="auto" visible="{ServicesViewModel>/PaymentButtomVisible}"
+				iconDensityAware="false" press="onPressCancelCustomer" class="sapUiTinyMarginEnd" icon='sap-icon://money-bills'/>
+			<!--<Button text="Cancel" type="Default" iconFirst="true" width="auto" visible="true" iconDensityAware="false" press="onPressCancelCustomer"-->
+			<!--	class="sapUiTinyMarginEnd" icon='sap-icon://sys-cancel'/>-->
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

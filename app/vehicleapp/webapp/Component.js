@@ -3,33 +3,76 @@
  */
 
 sap.ui.define([
-        "sap/ui/core/UIComponent",
-        "sap/ui/Device",
-        "vehicleapp/ui/vehicleapp/model/models"
-    ],
-    function (UIComponent, Device, models) {
-        "use strict";
+	"sap/ui/core/UIComponent",
+	"sap/ui/Device",
+	"vehicleapp/ui/vehicleapp/model/models",
+	
+],
+function (UIComponent, Device, models) {
+	"use strict";
 
-        return UIComponent.extend("vehicleapp.ui.vehicleapp.Component", {
-            metadata: {
-                manifest: "json"
-            },
+	return UIComponent.extend("vehicleapp.ui.vehicleapp.Component", {
+		metadata: {
+			manifest: "json"
+		},
 
-            /**
-             * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
-             * @public
-             * @override
-             */
-            init: function () {
-                // call the base component's init function
-                UIComponent.prototype.init.apply(this, arguments);
+		/**
+		 * The component is initialized by UI5 automatically during the startup of the app and calls the init method once.
+		 * @public
+		 * @override
+		 */
+		init: function () {
+			// call the base component's init function
+			UIComponent.prototype.init.apply(this, arguments);
 
-                // enable routing
-                this.getRouter().initialize();
+			// enable routing
+			this.getRouter().initialize();
 
-                // set the device model
-                this.setModel(models.createDeviceModel(), "device");
-            }
-        });
-    }
+			// set the device model
+			this.setModel(models.createDeviceModel(), "device");
+
+			//Image Model
+			var oRootPath = sap.ui.require.toUrl("vehicleapp/ui/vehicleapp"); // your resource root
+			var oImageModel = new sap.ui.model.json.JSONModel({
+				path: oRootPath
+			});
+			this.setModel(oImageModel, "imageModel");
+
+			/*Global Model*/
+			this.setModel(new sap.ui.model.json.JSONModel({
+				"MainPlant": "",
+				"CW_ProcessVisible": false,
+				"LPG_ProcessVisible": false,
+				"PlantF4Nav": [{
+					"Plant": "AD914",
+					"PlantName": "Zayed Stadium",
+					"Operation": "CW"
+				}, {
+					"Plant": "AD454",
+					"PlantName": "Market Jetty",
+					"Operation": "LPG"
+				}],
+
+				/*Search Details*/
+				"Profile_BPNo": "",
+				"Profile_BPType": "",
+				"Profile_Name": "",
+				"Profile_Mobile": "",
+				"Profile_Email": "",
+				"Profile_PlateNo": "",
+				"Profile_PlateCode": "",
+				"Profile_Emirates": "",
+				"Profile_Model": "",
+				"Profile_CarType": "",
+				"Profile_VINNo": "",
+
+			}), "oGlobalModel");
+
+				/*LaunchPad default shell hide*/
+			var oRenderer = sap.ushell.Container.getRenderer("fiori2");
+			oRenderer.setHeaderVisibility(false, false, ["home", "app"]);
+
+		}
+	});
+}
 );

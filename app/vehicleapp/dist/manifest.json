@@ -59,7 +59,7 @@
     "sap.ui5": {
         "flexEnabled": true,
         "dependencies": {
-            "minUI5Version": "1.127.0",
+            "minUI5Version": "1.96.34",
             "libs": {
                 "sap.m": {},
                 "sap.ui.core": {},
@@ -107,33 +107,76 @@
                 "async": true,
                 "viewPath": "vehicleapp.ui.vehicleapp.view",
                 "controlAggregation": "pages",
-                "controlId": "app",
+                "controlId": "pageContainer",
                 "clearControlAggregation": false
             },
             "routes": [
                 {
-                    "name": "RouteView1",
-                    "pattern": ":?query:",
+                    "name": "MainMenu",
+                    "pattern": "MainMenu",
+                    "titleTarget": "",
+                    "greedy": false,
                     "target": [
-                        "TargetView1"
+                        "MainMenu"
+                    ]
+                },
+                {
+                    "pattern": "Home",
+                    "name": "Home",
+                    "target": [
+                        "Home"
+                    ]
+                },
+                {
+                    "name": "Services",
+                    "pattern": "Services",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "Services"
+                    ]
+                },
+                {
+                    "name": "CreateCustomer",
+                    "pattern": "CreateCustomer",
+                    "titleTarget": "",
+                    "greedy": false,
+                    "target": [
+                        "CreateCustomer"
                     ]
                 }
             ],
             "targets": {
-                "TargetView1": {
+                "Home": {
+                    "viewType": "XML",
+                    "viewName": "Home",
+                    "clearControlAggregation": false
+                },
+                "MainMenu": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "View1",
-                    "viewName": "View1"
+                    "clearAggregation": true,
+                    "viewName": "MainMenu"
+                },
+                "Services": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "Services"
+                },
+                "CreateCustomer": {
+                    "viewType": "XML",
+                    "transition": "slide",
+                    "clearAggregation": true,
+                    "viewName": "CreateCustomer"
                 }
             }
         },
         "rootView": {
-            "viewName": "vehicleapp.ui.vehicleapp.view.App",
+            "viewName": "vehicleapp.ui.vehicleapp.view.MainMenu",
             "type": "XML",
             "async": true,
-            "id": "App"
+            "id": "splitapp"
         }
     },
     "sap.cloud": {
